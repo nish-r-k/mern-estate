@@ -24,6 +24,15 @@ app.listen(3000,()=>{
 app.use('/api/user',userRouter)
 app.use('/api/auth',authRouter)
 
+app.use((err,req,res,next)=>{
+    const statusCode =err.statusCode || 500;
+const message = err.message || 'Internal Server Error';
+return res.status(statusCode).json({
+    message:false,
+    statusCode,
+    message,
+})})
+
 // app.get('/test',(req,res)=>{
 //     res.send('API is working fine')
 // })
